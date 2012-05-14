@@ -18,38 +18,38 @@ describe Checkout do
     let(:fruit_tea){Product.new(:product_code => 'FR1', :name=>'Fruit tea', :price => 3.11)}
     let(:strawberries){Product.new(:product_code => 'SR1', :name=>'Strawberries', :price => 5.00)}
     let(:coffee){Product.new(:product_code => 'CF1', :name=>'Coffee', :price => 11.23)}
-    let(:pricing_rule){ 'implement' }
+    let(:pricing_rules){[PricingRule::BuyOneGetOne.new(fruit_tea)] }
 
     context 'fruit_tea + strawberries + fruit_tea + coffee' do
       let(:items){ [fruit_tea, strawberries, fruit_tea, strawberries] }
       it 'should be total 22.25' do
-        co = Checkout.new(pricing_rule)
+        co = Checkout.new(pricing_rules)
         items.each do |item|
           co.scan item
         end
-        co.total.should be 22.25
+        co.total.should == 22.25
       end
     end
 
     context 'fruit_tea + fruit_tea' do
       let(:items){ [fruit_tea, fruit_tea] }
       it 'should be total 3.11' do
-        co = Checkout.new(pricing_rule)
+        co = Checkout.new(pricing_rules)
         items.each do |item|
           co.scan item
         end
-        co.total.should be 3.11
+        co.total.should == 3.11
       end
     end
 
     context 'strawberries + strawberries + fruit_tea + strawberries' do
       let(:items){ [strawberries, strawberries, fruit_tea, strawberries] }
       it 'should be total 16.61' do
-        co = Checkout.new(pricing_rule)
+        co = Checkout.new(pricing_rules)
         items.each do |item|
           co.scan item
         end
-        co.total.should be 16.61
+        co.total.should == 16.61
       end
     end
   end
