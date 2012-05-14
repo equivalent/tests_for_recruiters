@@ -18,16 +18,19 @@ describe Checkout do
     let(:fruit_tea){Product.new(:product_code => 'FR1', :name=>'Fruit tea', :price => 3.11)}
     let(:strawberries){Product.new(:product_code => 'SR1', :name=>'Strawberries', :price => 5.00)}
     let(:coffee){Product.new(:product_code => 'CF1', :name=>'Coffee', :price => 11.23)}
-    let(:pricing_rules){[PricingRule::BuyOneGetOne.new(fruit_tea)] }
+    let(:pricing_rules){[PricingRule::BuyOneGetOne.new(fruit_tea), PricingRule::AmountDiscount.new(strawberries, 3, 4.50)] }
 
     context 'fruit_tea + strawberries + fruit_tea + coffee' do
-      let(:items){ [fruit_tea, strawberries, fruit_tea, strawberries] }
+      let(:items){ [fruit_tea, strawberries, fruit_tea, coffee] }
       it 'should be total 22.25' do
         co = Checkout.new(pricing_rules)
         items.each do |item|
           co.scan item
         end
-        co.total.should == 22.25
+        
+        co.total.should == 22.25 #this is wrong !!! 3.11 + 5 + 11.23 = 19.34 
+
+        # co.total.should == 19.34
       end
     end
 
