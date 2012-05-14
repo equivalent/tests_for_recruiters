@@ -1,5 +1,4 @@
-require './product'
-require './checkout'
+require './spec/spec_helper'
 
 describe Checkout do
 

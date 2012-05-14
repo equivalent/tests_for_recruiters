@@ -4,6 +4,7 @@ class Checkout
   def initialize(pricing_rules={})
     @total = 0.0
 
+
   end
   
   def scan(item)
