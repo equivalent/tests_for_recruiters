@@ -17,7 +17,7 @@ class Checkout
     @pricing_rules.each do |rule|
       total_price -= rule.discount
     end
-    return total_price
+    return ((total_price * 100).round.to_f/100)
   end
 
 end
