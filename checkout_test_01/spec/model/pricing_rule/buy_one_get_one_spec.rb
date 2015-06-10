@@ -5,13 +5,13 @@ describe PricingRule::BuyOneGetOne do
   let(:product2){ Product.new(:product_code=>'bb', :price => 11.11)}
    
   describe 'instance method "add"' do
-    it 'should add item if the initalization ocured with that product code' do
+    it 'should add item if the initialization occurred with that product code' do
       rule = PricingRule::BuyOneGetOne.new(product1)
       rule.add(product1)
       rule.items.include?(product1).should be_true
     end
 
-    it 'should not add item if the initalization ocured without that product code' do
+    it 'should not add item if the initialization occurred without that product code' do
       rule = PricingRule::BuyOneGetOne.new(product1)
       rule.add(product2)
       rule.items.include?(product2).should be_false
